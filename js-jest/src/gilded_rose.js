@@ -32,9 +32,8 @@ class NormalItem extends Item {
 }
 
 class AgedBrie extends Item {
-  constructor(sellIn, quality){
-    super(sellIn, quality)
-    this.name = "Aged Brie"
+  constructor(name, sellIn, quality){
+    super(name, sellIn, quality)
   }
 
   updateItem(){
@@ -56,9 +55,8 @@ class AgedBrie extends Item {
 }
 
 class LegendaryItem extends Item {
-  constructor(sellIn, quality){
-    super(sellIn, quality)
-    this.name = 'Sulfuras, Hand of Ragnaros'
+  constructor(name, sellIn, quality){
+    super(name, sellIn, quality)
   }
 
   updateItem(){
@@ -71,9 +69,8 @@ class LegendaryItem extends Item {
 }
 
 class ConcertTickets extends Item {
-  constructor(sellIn, quality){
-    super(sellIn, quality)
-    this.name = 'Backstage passes to a TAFKAL80ETC concert'
+  constructor(name,sellIn, quality){
+    super(name,sellIn, quality)
   }
 
   updateItem(){
@@ -109,9 +106,8 @@ class ConcertTickets extends Item {
 }
 
 class ConjuredItem extends Item {
-  constructor(sellIn, quality){
-    super(sellIn, quality)
-    this.name = "Conjured Item"
+  constructor(name, sellIn, quality){
+    super(name, sellIn, quality)
   }
 
   updateItem(){
@@ -122,10 +118,10 @@ class ConjuredItem extends Item {
         this.quality = 0
       }
     } else{
-      this.items[index].quality -= 4
+      this.quality -= 4
 
-      if(this.items[index].quality < 0){
-        this.items[index].quality = 0
+      if(this.quality < 0){
+        this.quality = 0
       }
     }
   }
@@ -137,13 +133,18 @@ class Shop {
   }
 
   updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      this.items[i].updateItem()
-    }
+    this.items.forEach(item => {
+      item.updateItem()
+      item.sellIn -= 1})
   }
 }
 
 module.exports = {
   Item,
-  Shop
+  Shop,
+  NormalItem,
+  ConjuredItem,
+  AgedBrie,
+  LegendaryItem,
+  ConcertTickets
 }
